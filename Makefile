@@ -58,7 +58,7 @@ prune: ## remove all stuff associated to project on docker => prune
 	@docker compose rm -f
 
 startapp: check-defined-app_name ## create new django app => startapp app_name={app_name}
-	docker compose exec -it ${__docker_compose_service}-dev python manage.py startapp ${app_name}
+	@docker compose exec -it ${__docker_compose_service}-dev python manage.py startapp ${app_name}
 
 wsgi: ## run application on wsgi mod => wsgi
 	@docker compose up ${__docker_compose_service}

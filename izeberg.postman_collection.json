@@ -1,0 +1,70 @@
+{
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "exec": [
+                    ""
+                ],
+                "type": "text/javascript"
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "exec": [
+                    ""
+                ],
+                "type": "text/javascript"
+            }
+        }
+    ],
+    "info": {
+        "_postman_id": "29457b34-481c-46f8-ad7c-7e83679dcb0c",
+        "name": "izeberg",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "get token",
+            "request": {
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}"
+                },
+                "header": [],
+                "method": "POST",
+                "url": {
+                    "host": [
+                        "{{HOST}}"
+                    ],
+                    "path": [
+                        "api",
+                        "login",
+                        ""
+                    ],
+                    "port": "{{PORT}}",
+                    "raw": "{{HOST}}:{{PORT}}/api/login/"
+                }
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "HOST",
+            "type": "default",
+            "value": "0.0.0.0"
+        },
+        {
+            "key": "PORT",
+            "type": "default",
+            "value": "8080"
+        }
+    ]
+}

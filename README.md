@@ -27,6 +27,7 @@ password `admin`
 
 ```
 $ make help
+make[1]: Entering directory '/mnt/d/onedrive/tests-tech/izeberg'
 Hello to the Makefile
 
 target                                   help                                                                                                 usage
@@ -42,6 +43,7 @@ pre-commit                                run pre-commit                        
 prune                                     remove all stuff associated to project on docker                                                     prune
 startapp                                  create new django app                                                                                startapp app_name#{app_name}
 wsgi                                      run application on wsgi mod                                                                          wsgi
+make[1]: Leaving directory '/mnt/d/onedrive/tests-tech/izeberg'
 ```
 
 <!-- END makefile-doc -->
