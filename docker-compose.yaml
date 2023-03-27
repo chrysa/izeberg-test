@@ -1,0 +1,37 @@
+---
+version : '3.9'
+services:
+    poke-izeberg:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            labels:
+                maintainer: ${MAINTAINER_NAME} <${MAINTAINER_MAIL}>
+                build_date: ${BUILD_DATE:-}
+                commit_id: ${CI_COMMIT_SHA:-}
+                vcs-url: ${CI_PROJECT_URL:-}
+                vcs-ref: ${CI_COMMIT_SHA:-}r
+        container_name: poke-izeberg
+        hostname: poke-izeberg
+        image: poke-izeberg:0.0.1
+        volumes:
+            - type: volume
+              source: sockets
+              target: /socket
+    poke-izeberg-dev:
+        command: python manage.py runserver --verbosity 3 0.0.0.0:8080
+        container_name: poke-izeberg-dev
+        hostname: poke-izeberg-dev
+        image: poke-izeberg:0.0.1
+        ports:
+            - 8080:8080
+        tty: true
+        volumes:
+            - type: bind
+              target: /poke-izeberg
+              source: ./src
+            - type: volume
+              source: sockets
+              target: /socket
+volumes :
+    sockets:

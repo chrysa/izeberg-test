@@ -1,0 +1,168 @@
+---
+default_language_version  :
+    python: python3.11
+fail_fast                 : false
+minimum_pre_commit_version: 3.0.4
+repos                     :
+  # - repo: meta
+  #   hooks:
+  #       - id: identity
+  #         stages:
+  #             - manual
+  #       - id: check-hooks-apply
+  #         stages:
+  #             - manual
+  #       - id: check-useless-excludes
+  #         stages:
+  #             - manual
+    - repo: https://github.com/hadolint/hadolint.git
+      rev: 6cab02ad0143cf334fe276cb7240f0263674be2d
+      hooks:
+          - id: hadolint-docker
+            args: [--config=./config-tools/.hadolint.yaml]
+    - repo: https://github.com/asottile/setup-cfg-fmt
+      rev: ccfe420a1f8a857343bed59c3b82897001926c5b
+      hooks:
+          - id: setup-cfg-fmt
+    - repo: https://github.com/asottile/dead
+      rev: 71a0ca2a5a1384997e1fbbecaf435459ad535262
+      hooks:
+          - id: dead
+    - repo: https://github.com/pre-commit/mirrors-pylint
+      rev: a1b176a5ee919967cf01e87c0222bd64b94fe0de
+      hooks:
+          - id: pylint
+            args: [--rcfile=./src/setup.cfg, --reports=no, --persistent=no, --score=no, --disable=E0401]
+    - repo: https://github.com/pre-commit/mirrors-mypy
+      rev: v1.1.1
+      hooks:
+          - id: mypy
+            args: [--config-file=./src/setup.cfg]
+    - repo: https://github.com/pycqa/flake8
+      rev: 45699b61ae4522864c60480c80d7c2ffb952d52e
+      hooks:
+          - id: flake8
+            args: [--config=./src/setup.cfg]
+    - repo: https://github.com/pre-commit/pygrep-hooks
+      rev: a70ea3df79fcb4af2ad29e0994380dcf3ca08ba1
+      hooks:
+          - id: python-no-eval
+          - id: python-no-log-warn
+          - id: python-use-type-annotations
+          - id: rst-backticks
+    - repo: https://github.com/MarcoGorelli/auto-walrus
+      rev: 803192698951433f710357b47982a23c63a07f4a
+      hooks:
+          - id: auto-walrus
+    - repo: https://github.com/dannysepler/rm_unneeded_f_str
+      rev: df396a8bfdeced1a011c7d9d6787aa7f49ac8634
+      hooks:
+          - id: rm-unneeded-f-str
+    - repo: https://github.com/PyCQA/bandit
+      rev: 02d73e94750a2a5d42e886b28243b03e920fb780
+      hooks:
+          - id: bandit
+    - repo: https://github.com/asottile/pyupgrade
+      rev: 45cdd60115e2fbab3bc8b1046a42c7302b2c0c8b
+      hooks:
+          - id: pyupgrade
+            args: [--py3-only, --py39-plus]
+    - repo: https://github.com/asottile/reorder_python_imports
+      rev: 4d30d602587a958bd9a9d1a96a52821113f7e034
+      hooks:
+          - id: reorder-python-imports
+            args: [--py37-plus, --application-directories=src]
+    - repo: https://github.com/psf/black
+      rev: ef6e079901d53a42dfae4ab10b081ce7a73a47b5
+      hooks:
+          - id: black
+            args: [--config=./config-tools/black.toml]
+    - repo: https://github.com/asottile/blacken-docs
+      rev: f661d46f39dbc8ebc9af11c5c5af7516bd0f6784
+      hooks:
+          - id: blacken-docs
+            additional_dependencies: [black]
+    - repo: https://github.com/econchick/interrogate
+      rev: 1e74611fc5296b0572b6bb11b480d43242c4ec49
+      hooks:
+          - id: interrogate
+            args: [-vv, --ignore-init-method, --ignore-module, --fail-under=95, --color, --generate-badge=interogate.svg]
+    - repo: https://github.com/adrienverge/yamllint.git
+      rev: 6bfd6756e2414e0a16a256eaf6575e922d7e2ac9
+      hooks:
+          - id: yamllint
+            args: [--config-file, config-tools/.yamllint.yaml, --format, parsable, --strict]
+    - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+      rev: 0.2.2
+      hooks:
+          - id: yamlfmt
+            args: [-c, config-tools/.yamllint.yaml]
+    - repo: https://github.com/cheshirekow/cmake-format-precommit
+      rev: v0.6.13
+      hooks:
+          - id: cmake-format
+            args: [-c, config-tools/.cmake-format.yaml]
+            files: Makefile
+          - id: cmake-lint
+            args: [-c, config-tools/.cmake-format.yaml]
+            files: Makefile
+    - repo: https://github.com/frnmst/md-toc
+      rev: 8.1.9
+      hooks:
+          - id: md-toc
+            stages:
+                - manual
+    - repo: https://github.com/smian/pre-commit-makefile.git
+      rev: 261f8fb4b31dfdc05d1a1d7fbde1f1462ecde66d
+      hooks:
+          - id: makefile-doc
+            stages:
+                - manual
+    - repo: https://github.com/igorshubovych/markdownlint-cli
+      rev: 9844fcea262ce1c52a0ee2a7d87d8286c28ff62a
+      hooks:
+          - id: markdownlint
+            args: [-c, config-tools/.markdownlint.yml, --fix]
+    - repo: https://github.com/executablebooks/mdformat
+      rev: 0cbd2054dedf98ec8366001c8a16eacfa85cebc1
+      hooks:
+          - id: mdformat
+        # Optionally add plugins
+            additional_dependencies:
+                - mdformat-gfm
+                - mdformat-black
+    - repo: https://github.com/lovesegfault/beautysh.git
+      rev: d616eb8d9d05ee4fb33de9c5521d99c3f0695d52
+      hooks:
+          - id: beautysh
+            args: [--indent-size, '4']
+    - repo: https://github.com/openstack/bashate.git
+      rev: f5426a8c83b429b7bae80d9004bdebc73ebe8137
+      hooks:
+          - id: bashate
+            args:
+                - --ignore=E006,E020
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: b0f11fe246ae49c7a3791009753d2148b97cb677
+      hooks:
+          - id: check-json
+          - id: check-yaml
+            args:
+                - --allow-multiple-documents
+            files: .(yaml|yml)$
+          - id: check-case-conflict
+          - id: end-of-file-fixer
+          - id: mixed-line-ending
+            args:
+                - --fix=lf
+          - id: pretty-format-json
+            args:
+                - --indent=4
+                - --autofix
+          - id: trailing-whitespace
+          - id: check-merge-conflict
+    - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+      rev: v2.8.0
+      hooks:
+          - id: pretty-format-toml
+            args: [--autofix]
