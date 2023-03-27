@@ -12,6 +12,8 @@ services:
                 vcs-url: ${CI_PROJECT_URL:-}
                 vcs-ref: ${CI_COMMIT_SHA:-}r
         container_name: poke-izeberg
+        environment:
+            DEBUG: false
         hostname: poke-izeberg
         image: poke-izeberg:0.0.1
         volumes:
@@ -21,15 +23,18 @@ services:
     poke-izeberg-dev:
         command: python manage.py runserver --verbosity 3 0.0.0.0:8080
         container_name: poke-izeberg-dev
+        environment:
+            DEBUG: true
         hostname: poke-izeberg-dev
         image: poke-izeberg:0.0.1
         ports:
             - 8080:8080
+        stdin_open: true
         tty: true
         volumes:
             - type: bind
-              target: /poke-izeberg
               source: ./src
+              target: /poke-izeberg-app
             - type: volume
               source: sockets
               target: /socket

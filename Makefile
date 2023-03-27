@@ -6,15 +6,18 @@ endif
 __docker_compose_service=poke-izeberg
 __docker_image=${__docker_compose_service}:0.0.1
 
-__project_directory=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
-__remote_folder=projects/$(shell basename $(CURDIR))
-
 SHELL := /bin/bash
 
 .DEFAULT_GOAL := help
 
 .PHONY: $(shell grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | cut -d":" -f1 | tr "\n" " ")
+
+check-defined-% :
+	:$(call check_defined, $*, target-specific)
+
+check_defined = $(strip $(foreach 1,$1, $(call __check_defined,$1,$(strip $(value 2)))))
+
+__check_defined = $(if $(value $1),, $(error Undefined $1$(if $2, ($2))$(if $(value ), required by target $)))
 
 help: ## This help dialog => help
 	@echo "Hello to the Makefile\n"
@@ -29,12 +32,16 @@ build: ## build container => build
 connect-dev: ## connect on dev container => connect-dev
 	@docker compose run -it --rm ${__docker_compose_service}-dev sh
 
+create-admin: ## create admin user
+	@docker compose exec -it ${__docker_compose_service}-dev python manage.py createsuperuser
+
 dev: migrate ## run application on dev configuration without mounted sources => dev
 	@docker compose up ${__docker_compose_service}-dev
 
 migrate: ## migrate models to database => migrate
-	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app --entrypoint "manage.py makemigrations --verbosity 3" ${__docker_compose_service}-dev
-	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app --entrypoint "manage.py migrate --verbosity 3" ${__docker_compose_service}-dev
+	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py makemigrations --verbosity 3
+	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py migrate --verbosity 3
+	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py showmigrations --verbosity 3
 
 outdated: ## outdated python packages => outdated
 	@docker compose run -it --rm ${__docker_compose_service} pip list --outdated
@@ -50,8 +57,8 @@ prune: ## remove all stuff associated to project on docker => prune
 	@docker compose down --rmi all --volumes
 	@docker compose rm -f
 
-up: ## run services with logs following => up
-	@docker compose up ${__docker_compose_service}
+startapp: check-defined-app_name ## create new django app => startapp app_name={app_name}
+	docker compose exec -it ${__docker_compose_service}-dev python manage.py startapp ${app_name}
 
-up-detach: ## run services without logs following => up-detach
-	@docker compose up --detach ${__docker_compose_service}
+wsgi: ## run application on wsgi mod => wsgi
+	@docker compose up ${__docker_compose_service}
