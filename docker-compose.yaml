@@ -34,7 +34,7 @@ services:
         volumes:
             - type: bind
               source: ./src
-              target: /poke_izeberg-app
+              target: /poke-izeberg-app
             - type: volume
               source: sockets
               target: /socket

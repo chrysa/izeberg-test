@@ -8,8 +8,8 @@ ______________________________________________________________________
 
 - [generate graph for docker-compose](#generate-graph-for-docker-compose)
   - [Table Of Content](#table-of-content)
-  - [Docker Usage](#docker-usage)
   - [Remarques](#remarques)
+  - [Docker Usage](#docker-usage)
   - [Postman:wq](#postmanwq)
   - [Evolution](#evolution)
   - [Admin panel](#admin-panel)
@@ -17,13 +17,9 @@ ______________________________________________________________________
 
 <!--TOC-->
 
-## Docker Usage
-
-`make build` puis `make dev`
-
-le volume `sockets` contient le socket uwsgi qui permettrait de connecter l'application a un reverse proxy
-
 ## Remarques
+
+je suis parti du principe que les données envoyé par l'utilisateur sont valides
 
 personnellement j'aurais fait queLQues modifications pour respecter les standards
 
@@ -34,6 +30,12 @@ cependant gardant votre postulat
 - la route `POST /api/group/<type>/add/`
   - le type ne devrait pas etre dans l'URL mais dans un payload ce qui permettrait aussi de pouvoir ajouter plusieurs types et de limiter les appels API et a la DB
   - une route `PATCH /api/group/update` devrait etre creer pour ajouter des groupes a un user existant
+
+## Docker Usage
+
+`make build` puis `make dev`
+
+le volume `sockets` contient le socket uwsgi qui permettrait de connecter l'application a un reverse proxy
 
 ## Postman:wq
 
