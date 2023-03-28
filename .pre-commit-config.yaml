@@ -43,12 +43,12 @@ repos                     :
           - id: reorder-python-imports
             args: [--py37-plus, --application-directories=src]
     - repo: https://github.com/psf/black
-      rev: f3b1a3b9d2fc6de8f0845399cb80d8bdfd6400fd
+      rev: bf5abdb0b6cf6644628977230736a0a6478c1bff
       hooks:
           - id: black
             args: [--config=./config-tools/black.toml]
     - repo: https://github.com/asottile/blacken-docs
-      rev: f661d46f39dbc8ebc9af11c5c5af7516bd0f6784
+      rev: 98014dabdc195565c14b6f7a3d89eb722032edec
       hooks:
           - id: blacken-docs
             additional_dependencies: [black]
@@ -119,7 +119,7 @@ repos                     :
             stages:
                 - manual
     - repo: https://github.com/igorshubovych/markdownlint-cli
-      rev: 9844fcea262ce1c52a0ee2a7d87d8286c28ff62a
+      rev: 4e6fb32635431ba651a7ebd035726028974aea28
       hooks:
           - id: markdownlint
             args: [-c, config-tools/.markdownlint.yml, --fix]

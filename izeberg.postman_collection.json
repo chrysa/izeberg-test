@@ -26,6 +26,370 @@
     },
     "item": [
         {
+            "item": [
+                {
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    "const host = pm.variables.get(\"HOST\");\r",
+                                    "const port = pm.variables.get(\"PORT\");\r",
+                                    "\r",
+                                    "const postRequest = {\r",
+                                    "  url: `${host}:${port}/api/login/`,\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {\r",
+                                    "    mode: 'raw',\r",
+                                    "    raw: JSON.stringify({\"username\": \"admin\",\"password\": \"admin\"})\r",
+                                    "  },\r",
+                                    "  header: {\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "};\r",
+                                    "pm.sendRequest(postRequest, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "  const authToken = responseData.token;\r",
+                                    "  pm.environment.set(\"AUTH_TOKEN\", authToken);\r",
+                                    "  console.log(`Successfully authenticated! Token: ${authToken}`);\r",
+                                    "});\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "name": "invalid type",
+                    "request": {
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "type": "default",
+                                "value": "Token {{AUTH_TOKEN}}"
+                            }
+                        ],
+                        "method": "POST",
+                        "url": {
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "api",
+                                "group",
+                                "invalid",
+                                "add",
+                                ""
+                            ],
+                            "port": "{{PORT}}",
+                            "raw": "{{HOST}}:{{PORT}}/api/group/invalid/add/"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    "const host = pm.variables.get(\"HOST\");\r",
+                                    "const port = pm.variables.get(\"PORT\");\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "  url: `${host}:${port}/api/login/`,\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {\r",
+                                    "    mode: 'raw',\r",
+                                    "    raw: JSON.stringify({\"username\": \"admin\",\"password\": \"admin\"})\r",
+                                    "  },\r",
+                                    "  header: {\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "}, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "  const authToken = responseData.token;\r",
+                                    "  pm.environment.set(\"AUTH_TOKEN\", authToken);\r",
+                                    "  console.log(`Successfully authenticated! Token: ${authToken}`);\r",
+                                    "});\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "name": "valid type",
+                    "request": {
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "type": "default",
+                                "value": "Token {{AUTH_TOKEN}}"
+                            }
+                        ],
+                        "method": "POST",
+                        "url": {
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "api",
+                                "group",
+                                "normal",
+                                "add",
+                                ""
+                            ],
+                            "port": "{{PORT}}",
+                            "raw": "{{HOST}}:{{PORT}}/api/group/normal/add/"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    "const host = pm.variables.get(\"HOST\");\r",
+                                    "const port = pm.variables.get(\"PORT\");\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "  url: `${host}:${port}/api/login/`,\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {\r",
+                                    "    mode: 'raw',\r",
+                                    "    raw: JSON.stringify({\"username\": \"admin\",\"password\": \"admin\"})\r",
+                                    "  },\r",
+                                    "  header: {\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "}, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "  const authToken = responseData.token;\r",
+                                    "  pm.environment.set(\"AUTH_TOKEN\", authToken);\r",
+                                    "  console.log(`Successfully authenticated! Token: ${authToken}`);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "  url: '${HOST}:${PORT}/api/group/normal/add/',\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {},\r",
+                                    "  header: {\r",
+                                    "    'Authorization': 'Token ${AUTH_TOKEN}',\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "}, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "});\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "name": "add second valid type",
+                    "request": {
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "type": "default",
+                                "value": "Token {{AUTH_TOKEN}}"
+                            }
+                        ],
+                        "method": "POST",
+                        "url": {
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "api",
+                                "group",
+                                "bug",
+                                "add",
+                                ""
+                            ],
+                            "port": "{{PORT}}",
+                            "raw": "{{HOST}}:{{PORT}}/api/group/bug/add/"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    "const host = pm.variables.get(\"HOST\");\r",
+                                    "const port = pm.variables.get(\"PORT\");\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "  url: `${host}:${port}/api/login/`,\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {\r",
+                                    "    mode: 'raw',\r",
+                                    "    raw: JSON.stringify({\"username\": \"admin\",\"password\": \"admin\"})\r",
+                                    "  },\r",
+                                    "  header: {\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "}, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "  const authToken = responseData.token;\r",
+                                    "  pm.environment.set(\"AUTH_TOKEN\", authToken);\r",
+                                    "  console.log(`Successfully authenticated! Token: ${authToken}`);\r",
+                                    "});\r",
+                                    "\r",
+                                    "pm.sendRequest({\r",
+                                    "  url: '${HOST}:${PORT}/api/group/normal/add/',\r",
+                                    "  method: 'POST',\r",
+                                    "  body: {},\r",
+                                    "  header: {\r",
+                                    "    'Authorization': 'Token ${AUTH_TOKEN}',\r",
+                                    "    'Content-Type': 'application/json'\r",
+                                    "  }\r",
+                                    "}, (error, response) => {\r",
+                                    "  if (error) {\r",
+                                    "    console.log(`Error: ${error}`);\r",
+                                    "    return;\r",
+                                    "  }\r",
+                                    "  const responseData = response.json();\r",
+                                    "});\r",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "name": "already have this type",
+                    "request": {
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "type": "default",
+                                "value": "Token {{AUTH_TOKEN}}"
+                            }
+                        ],
+                        "method": "POST",
+                        "url": {
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "api",
+                                "group",
+                                "normal",
+                                "add",
+                                ""
+                            ],
+                            "port": "{{PORT}}",
+                            "raw": "{{HOST}}:{{PORT}}/api/group/normal/add/"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "event": [
+                        {
+                            "listen": "prerequest",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        },
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "name": "unlogged",
+                    "request": {
+                        "header": [],
+                        "method": "POST",
+                        "url": {
+                            "host": [
+                                "{{HOST}}"
+                            ],
+                            "path": [
+                                "api",
+                                "group",
+                                "normal",
+                                "add",
+                                ""
+                            ],
+                            "port": "{{PORT}}",
+                            "raw": "{{HOST}}:{{PORT}}/api/group/normal/add/"
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "name": "add user to type"
+        },
+        {
             "name": "get token",
             "request": {
                 "body": {

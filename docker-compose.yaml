@@ -10,7 +10,7 @@ services:
                 build_date: ${BUILD_DATE:-}
                 commit_id: ${CI_COMMIT_SHA:-}
                 vcs-url: ${CI_PROJECT_URL:-}
-                vcs-ref: ${CI_COMMIT_SHA:-}r
+                vcs-ref: ${CI_COMMIT_SHA:-}
         container_name: poke-izeberg
         environment:
             DEBUG: false

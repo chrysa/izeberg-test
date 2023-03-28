@@ -38,6 +38,9 @@ create-admin: ## create admin user
 dev: migrate ## run application on dev configuration without mounted sources => dev
 	@docker compose up ${__docker_compose_service}-dev
 
+down: migrate ## run application on dev configuration without mounted sources => dev
+	@docker compose down --remove-orphans
+
 migrate: ## migrate models to database => migrate
 	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py makemigrations --verbosity 3
 	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py migrate --verbosity 3
