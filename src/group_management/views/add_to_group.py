@@ -9,11 +9,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from group_management.serializers.type_group import TypeGroupSerializer
 from group_management.serializers.user_type import UserTypeSerializer
+from pokemon.serializers.type_group import TypeGroupSerializer
 
 if TYPE_CHECKING:
-    from group_management.models.type_group import TypeGroup
+    from pokemon.models.type_group import TypeGroup
     from django.contrib.auth.models import User
 
 

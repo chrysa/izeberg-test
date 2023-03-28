@@ -22,4 +22,4 @@ EXPOSE 8000
 CMD ["/scripts/cmd.sh"]
 
 HEALTHCHECK --interval=30s --timeout=30s --retries=10 --start-period=10s \
-  CMD -f /socket/izeberg.socket || exit 1
+  CMD -f /socket/poke_izeberg.socket || exit 1

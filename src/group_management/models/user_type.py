@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from group_management.models.type_group import TypeGroup
+from pokemon.models.type_group import TypeGroup
 
 
 class UserType(models.Model):

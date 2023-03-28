@@ -45,8 +45,10 @@ ayant un soucis avec la fonctionnalite `browsable API` je vous fournit une colle
 - ajout de documentation
 - ajout de tests fonctionnels via postman
 - ajouter des managers dans les models pour centraliser les requetes et ne pas en avoir dans les serializers et les views
+- affiner les retour HTTP
+- revoir le typing
 - retravailler le panel admin
-- retrvailler le routage des urls
+- mettre de l'HATEOAS
 
 ## Admin panel
 

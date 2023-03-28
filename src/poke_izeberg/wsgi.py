@@ -1,5 +1,5 @@
 """
-WSGI config for poke-izeberg project.
+WSGI config for poke_izeberg project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -10,6 +10,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poke-izeberg.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poke_izeberg.settings')
 
 application = get_wsgi_application()

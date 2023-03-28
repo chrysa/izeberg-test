@@ -9,23 +9,22 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from group_management.serializers.user_type import UserTypeSerializer
+from poke_api_accessor import PokeAccess
 
 if TYPE_CHECKING:
     from rest_framework.authtoken.admin import User
 
 
-class Profile(APIView):
+class PokeList(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs) -> Response:
+        available_pokemon_by_type: dict[str, list[str]] = {}
+        poke_access: PokeAccess = PokeAccess()
         user: User = Token.objects.get(key=request.auth.key).user
-        user_type_serializer: UserTypeSerializer = UserTypeSerializer(
-            data={
-                "user": user.username,
-                "group_type": user.poke_type.all().values_list("group_type__type_name", flat=True),
-            }
-        )
-        user_type_serializer.is_valid()
-        return Response(user_type_serializer.data, status=status.HTTP_200_OK)
+        for poke_type in user.poke_type.all():
+            for group_type in poke_type.group_type.all():
+                type_name: str = group_type.type_name
+                available_pokemon_by_type[type_name] = poke_access.get_pokemon_list_by_type(type_name=type_name)
+        return Response(available_pokemon_by_type, status=status.HTTP_200_OK)

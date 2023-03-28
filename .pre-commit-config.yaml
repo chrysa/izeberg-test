@@ -52,10 +52,10 @@ repos                     :
       hooks:
           - id: blacken-docs
             additional_dependencies: [black]
-    - repo: https://github.com/asottile/dead
-      rev: 71a0ca2a5a1384997e1fbbecaf435459ad535262
-      hooks:
-          - id: dead
+#    - repo: https://github.com/asottile/dead
+#      rev: 71a0ca2a5a1384997e1fbbecaf435459ad535262
+#      hooks:
+#          - id: dead
     - repo: https://github.com/pre-commit/mirrors-pylint
       rev: a1b176a5ee919967cf01e87c0222bd64b94fe0de
       hooks:
@@ -119,7 +119,7 @@ repos                     :
             stages:
                 - manual
     - repo: https://github.com/igorshubovych/markdownlint-cli
-      rev: 4e6fb32635431ba651a7ebd035726028974aea28
+      rev: 2d95a131630c8a113dc057e678eb7c241c0555dc
       hooks:
           - id: markdownlint
             args: [-c, config-tools/.markdownlint.yml, --fix]

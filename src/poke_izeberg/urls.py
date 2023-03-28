@@ -1,5 +1,5 @@
 """
-poke-izeberg URL Configuration
+poke_izeberg URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -15,17 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import include
 from django.urls import path
 
-from group_management.views.add_to_group import AddUserTypeGroup
-from group_management.views.remove_to_group import RemoveUserTypeGroup
-from user_auth.views.auth import CustomAuthToken
-from user_auth.views.profile import Profile
+api_route: list[path] = [
+    path('group/', include('group_management.urls')),
+    path('pokemon/', include('pokemon.urls')),
+    path('', include('user_auth.urls')),
+]
 
-urlpatterns = [
+urlpatterns: list[path] = [
     path('admin/', admin.site.urls),
-    path('api/login/', CustomAuthToken.as_view()),
-    path('api/group/<str:type_name>/add/', AddUserTypeGroup.as_view()),
-    path('api/group/<str:type_name>/remove/', RemoveUserTypeGroup.as_view()),
-    path('api/user/me/', Profile.as_view()),
+    path('api/', include(api_route)),
 ]

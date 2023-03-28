@@ -11,10 +11,10 @@ services:
                 commit_id: ${CI_COMMIT_SHA:-}
                 vcs-url: ${CI_PROJECT_URL:-}
                 vcs-ref: ${CI_COMMIT_SHA:-}
-        container_name: poke-izeberg
+        container_name: poke_izeberg
         environment:
             DEBUG: false
-        hostname: poke-izeberg
+        hostname: poke_izeberg
         image: poke-izeberg:0.0.1
         volumes:
             - type: volume
@@ -22,10 +22,10 @@ services:
               target: /socket
     poke-izeberg-dev:
         command: python manage.py runserver --verbosity 3 0.0.0.0:8080
-        container_name: poke-izeberg-dev
+        container_name: poke_izeberg-dev
         environment:
             DEBUG: true
-        hostname: poke-izeberg-dev
+        hostname: poke_izeberg-dev
         image: poke-izeberg:0.0.1
         ports:
             - 8080:8080
@@ -34,7 +34,7 @@ services:
         volumes:
             - type: bind
               source: ./src
-              target: /poke-izeberg-app
+              target: /poke_izeberg-app
             - type: volume
               source: sockets
               target: /socket
