@@ -9,7 +9,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from group_management.models.user_type import UserType
 from group_management.serializers.type_group import TypeGroupSerializer
 from group_management.serializers.user_type import UserTypeSerializer
 
