@@ -40,8 +40,6 @@ class AddUserTypeGroup(APIView):
             if user_type_serializer.is_valid(raise_exception=True):
                 http_status, _ = user_type_serializer.save()
                 value = {"user": user.username, "type_name": type_name}
-                instance:UserType = UserType.objects.get(user=user)
-                print(instance.group_type.all())
             else:
                 value = type_group_serializer.errors
         else:

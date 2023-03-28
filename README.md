@@ -10,7 +10,7 @@ ______________________________________________________________________
   - [Table Of Content](#table-of-content)
   - [Docker Usage](#docker-usage)
   - [Remarques](#remarques)
-  - [Postman](#postman)
+  - [Postman:wq](#postmanwq)
   - [Evolution](#evolution)
   - [Admin panel](#admin-panel)
   - [Makefile](#makefile)
@@ -35,17 +35,18 @@ cependant gardant votre postulat
   - le type ne devrait pas etre dans l'URL mais dans un payload ce qui permettrait aussi de pouvoir ajouter plusieurs types et de limiter les appels API et a la DB
   - une route `PATCH /api/group/update` devrait etre creer pour ajouter des groupes a un user existant
 
-## Postman
+## Postman:wq
 
 ayant un soucis avec la fonctionnalite `browsable API` je vous fournit une collection postman `izeberg.postman_collection.json` pour faciliter le test de l'API
 
 ## Evolution
 
-```
 - ajout de tests unitaire
 - ajout de documentation
 - ajout de tests fonctionnels via postman
-```
+- ajouter des managers dans les models pour centraliser les requetes et ne pas en avoir dans les serializers et les views
+- retravailler le panel admin
+- retrvailler le routage des urls
 
 ## Admin panel
 
