@@ -28,8 +28,11 @@ personnellement j'aurais fait queLQues modifications pour respecter les standard
 cependant gardant votre postulat
 
 - la route `POST /api/group/<type>/add/`
+
   - le type ne devrait pas etre dans l'URL mais dans un payload ce qui permettrait aussi de pouvoir ajouter plusieurs types et de limiter les appels API et a la DB
   - une route `PATCH /api/group/update` devrait etre creer pour ajouter des groupes a un user existant
+
+- la route `POST /api/group/<type>/remove/` devrait utiliser le verb `DELETE`
 
 ## Docker Usage
 
@@ -48,7 +51,7 @@ ayant un soucis avec la fonctionnalite `browsable API` je vous fournit une colle
 - ajout de tests fonctionnels via postman
 - ajouter des managers dans les models pour centraliser les requetes et ne pas en avoir dans les serializers et les views
 - affiner les retour HTTP
-- revoir le typing
+- revoir le typing (ajouter entre autres des custom datatypes)
 - retravailler le panel admin
 - mettre de l'HATEOAS
 

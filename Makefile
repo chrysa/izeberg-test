@@ -27,7 +27,7 @@ help: ## This help dialog => help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | sed 's/:.*##/##/g' | tr ':' ' ' | tr '=>' '##'| awk 'BEGIN {FS = "##"}; {printf "\033[36m%-40s\033[0m %-100s %-60s\n", $$1, $$2, $$3}'
 
 build: ## build container => build
-	@docker compose build ${__docker_compose_service}
+	@docker compose build --no-cache --compress --force-rm  ${__docker_compose_service}
 
 connect-dev: ## connect on dev container => connect-dev
 	@docker compose run -it --rm ${__docker_compose_service}-dev sh
@@ -45,6 +45,9 @@ migrate: ## migrate models to database => migrate
 	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py makemigrations --verbosity 3
 	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py migrate --verbosity 3
 	@docker compose run -it --rm --volume ${PWD}/src/:/poke-izeberg-app ${__docker_compose_service}-dev manage.py showmigrations --verbosity 3
+
+#postman: ## launch postman collection on cli => postman
+#	@docker compose up --detach ${__docker_compose_service}-dev && docker run -it -v ${PWD}:/etc/newman postman/newman run --verbose izeberg.postman_collection.json ; docker compose down
 
 outdated: ## outdated python packages => outdated
 	@docker compose run -it --rm ${__docker_compose_service} pip list --outdated

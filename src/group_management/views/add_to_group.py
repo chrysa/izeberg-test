@@ -21,7 +21,7 @@ class AddUserTypeGroup(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, type_name: str, format=None) -> Response:
+    def post(self, request, type_name: str) -> Response:
         http_status: status = status.HTTP_400_BAD_REQUEST
         value: dict[str, str]
         type_group_serializer: TypeGroupSerializer = TypeGroupSerializer(data={"type_name": type_name})

@@ -43,7 +43,7 @@ repos                     :
           - id: reorder-python-imports
             args: [--py37-plus, --application-directories=src]
     - repo: https://github.com/psf/black
-      rev: bf5abdb0b6cf6644628977230736a0a6478c1bff
+      rev: 23.3.0
       hooks:
           - id: black
             args: [--config=./config-tools/black.toml]

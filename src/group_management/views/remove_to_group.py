@@ -21,26 +21,29 @@ class RemoveUserTypeGroup(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, type_name: str, format=None) -> Response:
+    def post(self, request, type_name: str) -> Response:
         http_status: status = status.HTTP_400_BAD_REQUEST
         value: dict[str, str] = {}
-        type_group_serializer: TypeGroupSerializer = TypeGroupSerializer(data={"type_name": type_name})
-        if type_group_serializer.is_valid():
-            type_group: TypeGroup
-            type_group, created = TypeGroup.objects.get_or_create(
-                type_name=type_group_serializer.validated_data["type_name"]
-            )
-            user: User = Token.objects.get(key=request.auth.key).user
-            if not created:
+        user: User = Token.objects.get(key=request.auth.key).user
+        if UserType.objects.filter(
+            user=user,
+            group_type__type_name__in=[
+                type_name,
+            ],
+        ).exists():
+            type_group_serializer: TypeGroupSerializer = TypeGroupSerializer(data={"type_name": type_name})
+            if type_group_serializer.is_valid():
+                type_group: TypeGroup
+                type_group = TypeGroup.objects.get(type_name=type_group_serializer.validated_data["type_name"])
                 instance: UserType = UserType.objects.get(user=user)
                 if type_group in instance.group_type.all():
                     instance.group_type.remove(type_group)
                     instance.save()
                     http_status: status = status.HTTP_200_OK
                 else:
-                    value = {"error": f"user {user.username} don't have type {type_group.type_name}"}
+                    value = {"error": f"user {user.username} don't have type `{type_group.type_name}`"}
             else:
-                value = {"error": f"user {user.username} don't have type {type_group.type_name}"}
+                value = type_group_serializer.errors
         else:
-            value = type_group_serializer.errors
+            value = {"error": f"user {user.username} don't have type `{type_name}`"}
         return Response(value, status=http_status)
