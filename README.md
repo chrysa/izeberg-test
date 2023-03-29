@@ -40,7 +40,7 @@ cependant gardant votre postulat
 
 le volume `sockets` contient le socket uwsgi qui permettrait de connecter l'application a un reverse proxy
 
-## Postman:wq
+## Postman
 
 ayant un soucis avec la fonctionnalite `browsable API` je vous fournit une collection postman `izeberg.postman_collection.json` pour faciliter le test de l'API
 
